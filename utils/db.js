@@ -7,7 +7,7 @@ class DBClient {
     this.database = process.env.DB_DATABASE || 'files_manager';
     const url = `mongodb://${host}:${port}/${this.database}`;
 
-    this.client = new MongoClient(url);
+    this.client = new MongoClient(url, { useUnifiedTopology: true });
     this.client.connect();
   }
 
