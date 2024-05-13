@@ -15,14 +15,14 @@ class UsersController {
       return;
     }
 
-    const user = await dbClient.users.findOne({ email });
+    const user = await dbClient.database.collection('users').findOne({ email });
     if (user) {
       res.status(400).send({ error: 'Already exist' });
       return;
     }
 
     const hashedPassword = sha1(password);
-    const newUser = await dbClient.users.insertOne({ email, password: hashedPassword });
+    const newUser = await dbClient.database.collection('users').insertOne({ email, password: hashedPassword });
     res.status(201).send({ id: newUser.insertedID, email });
   }
 }
